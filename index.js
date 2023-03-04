@@ -178,12 +178,12 @@ Aşağıdaki işlemleri yapmak için indekseGoreFenomen işlevini kullanın:
 NOT: DÖNDÜĞÜNÜZ DİZİN YUKARIDAKİ BİÇİMLE EŞLEŞMESİ GEREKİR, YA DA TESTİ GEÇMEYECEKTİR!
 ÖRNEK: fenomenler dizisi ve 3 sayısı ile indekseGoreFenomen çağrılırsa, `3. indekste bulunan fenomen: Leo Messi' */
 
-function indekseGoreFenomen(fenomenler,indexGosterenSayi) {
+function indekseGoreFenomen (fenomenlerP,indexNoP) {
 
-  return indexGosterenSayi + ". indekste bulunan fenomen: " + fenomenler[indexGosterenSayi]["profile"];
-  
+  return `${indexNoP}. indekste bulunan fenomen: ${fenomenlerP[indexNoP].profile}` 
+    
   }
-  console.log(indekseGoreFenomen(fenomenler,5))
+  console.log(indekseGoreFenomen (fenomenler,5))
 
 
 
@@ -214,7 +214,17 @@ function profilListesi(profileList, fenomen) {
 }
 console.log(profilListesi(fenomenler, "profile"))
 
+/* daha basit hali: 
 
+function profilListesi(fenomenlerP)
+ { 
+const sadeceIsimler = fenomenlerP.map((x) => x.profile);
+
+return sadeceIsimler;
+}
+console.log(profilListesi(fenomenler))
+
+*/
 
 /* Görev 5:
 Aşağıdakileri yapmak için fenomenSil'i kullanın:
@@ -281,20 +291,17 @@ Aşağıdakileri yapmak için enFenomenler'yi kullanın:
 ÖRNEK: enFenomenler(fenomenler) çağrıldığında sonuç olarak ["Instagram", "Cristiano Ronaldo", ... "Khabane lame"] dönemelidir
 */
 
-function enFenomenler(fenomenlerDizisi) {
-  
-  const enFenomen = [];
+function enFenomenler(fenomenlerP) {
+
+  const cokTakipcililer = [];
     
-    for (let i = 0; i < fenomenlerDizisi.length; i++) {
-      
-      const tekTekTumFenomenlerBakilacak = fenomenlerDizisi[i];
-  
-      if (tekTekTumFenomenlerBakilacak.followers >= 100000000) {
-        enFenomen.push(tekTekTumFenomenlerBakilacak.profile);
-      }
-   }
-   return enFenomen;
-  
+  for (let i=0; i<fenomenlerP.length; i++) {
+    if (fenomenlerP[i].followers > 100000000) {
+      cokTakipcililer.push(fenomenlerP[i].profile); 
+    }
+  }
+  return cokTakipcililer; 
+    
   }
   console.log(enFenomenler(fenomenler))
 
@@ -308,19 +315,16 @@ Aşağıdakileri yapmak için fenomenGonderimSayisi'nı kullanın:
 ÖRNEK: fenomenGonderimSayisi(fenomenler, 'Will Smith') çağrıldığında "136" dönmelidir
 */
 
-function fenomenGonderimSayisi(fenomenlerDizisi,profileAdi){
-    
-  for (let i = 0; i < fenomenlerDizisi.length; i++) {
-    
-    const tekTekTumFenomenlerBakilacak = fenomenlerDizisi[i];
+function fenomenGonderimSayisi(fenomenlerP,profileP) {
 
-    if (tekTekTumFenomenlerBakilacak.profile === profileAdi) {
-      return tekTekTumFenomenlerBakilacak.posts;
+  for (let i=0; i<fenomenlerP.length; i++){ 
+    if (fenomenlerP[i].profile === profileP) {
+         return fenomenlerP[i].posts;
+  } 
     }
- }
-
-}
-console.log(fenomenGonderimSayisi(fenomenler,"Rihanna"))
+  } 
+  console.log(fenomenGonderimSayisi(fenomenler,"Elon Musk"))
+    
 
 
 
@@ -340,21 +344,18 @@ function platformaGoreCokGonderiYapanFenomen(FenomenlerDizisi,platformAdi){
   const platformdakiTakipciSayileri = [];
   
       for (let i = 0; i < FenomenlerDizisi.length; i++) {
-        
-        const tekTekTumFenomenlerBakilacak = FenomenlerDizisi[i];
-    
-        if (tekTekTumFenomenlerBakilacak.platform === platformAdi) {
-          if (tekTekTumFenomenlerBakilacak.followers != "NA") {
-          platformdakiTakipciSayileri.push(tekTekTumFenomenlerBakilacak.followers);
+            
+        if (FenomenlerDizisi[i].platform === platformAdi) {
+          if (FenomenlerDizisi[i].followers != "NA") {
+          platformdakiTakipciSayileri.push(FenomenlerDizisi[i].followers);
         }
          }  
      }
    const x = Math.max(...platformdakiTakipciSayileri);
     
      for (let i = 0; i < FenomenlerDizisi.length; i++) { 
-       const tekTekTumFenomenlerBakilacak2 = FenomenlerDizisi[i];
-        if (tekTekTumFenomenlerBakilacak2.followers === x) {
-    return tekTekTumFenomenlerBakilacak2.profile;
+        if (FenomenlerDizisi[i].followers === x) {
+    return FenomenlerDizisi[i].profile;
         }
          }  
     }
